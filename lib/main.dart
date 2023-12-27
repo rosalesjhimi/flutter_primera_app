@@ -1,141 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_primera_app/pages/pagina02.dart';
 
-void main() => runApp(const MiApp());
+class MiApplic extends StatefulWidget {
+  const MiApplic({super.key});
 
-class MiApp extends StatelessWidget {
-  const MiApp({super.key});
+  @override
+  State<MiApplic> createState() => _MiApplicState();
+}
+
+class _MiApplicState extends State<MiApplic> {
+
+  bool suscrito = false;
+
+
+  void _cambiaestado() {
+    setState(() {
+      suscrito = !suscrito;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: "Mi App",
-      home: Inicio(),
+    return _buildCuepoAlertDialog(context);
+  }
+
+// Alert Dialog
+  Widget _buildCuepoAlertDialog(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 199, 15, 15), // background
+              foregroundColor: Color.fromARGB(255, 245, 237, 237), // foreground
+            ),
+            child: const Text(
+              'Suscribirme al canal',
+              style: TextStyle(fontSize: 20),
+            ),
+            onPressed: () => _mostrarAlerta(context),
+          ),
+          const SizedBox(width: 0.0, height: 100.0),
+          Text(
+            suscrito ? "Suscrito" : "No Suscrito",
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
     );
   }
-}
 
-class Inicio extends StatefulWidget {
-  const Inicio({super.key});
-
-  @override
-  State<Inicio> createState() => _InicioState();
-}
-
-class _InicioState extends State<Inicio> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Mi Applicacion"),
-        ),
-        body: _buildCuerpoNavegacion(context));
+  void _mostrarAlerta(BuildContext context) {
+    showDialog(
+      barrierDismissible:
+          false, //Para que no se cierre el dialogo cuando se da click fuera
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(  suscrito ? "Cancelar suscripcion":'Suscribirse'),
+          content: Text(
+           suscrito ? "Quiere cancelar suscripcion?":'¿Estas seguro que quieres suscribirte?',
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                print("No");
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Si quiero.'),
+              onPressed: () {
+                print("sss");
+                _cambiaestado();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
+
 }
 
-Widget _buildCuerpoNavegacion(context) {
-  return Center(
-      child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text('Home'),
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.red, // background
-          onPrimary: Colors.white, // foreground
+void main() {
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: Center(
+          child: MiApplic(),
         ),
-        child: Text('Ir a la otra pagina'),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Pagina02()));
-        },
       ),
-    ],
-  ));
-}
-
-// Mostrando un menu de Login
-Widget _buildCuerpoLogin() {
-  return Container(
-    decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-                "https://images.unsplash.com/photo-1682686580950-960d1d513532?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            fit: BoxFit.cover)),
-    child: Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        nombre(),
-        campoUsuario(),
-        campoContrasena(),
-        const SizedBox(
-          height: 15,
-        ),
-        botonEntrar(),
-      ],
-    )),
-  );
-}
-
-Widget nombre() {
-  return Text(
-    "Sing in",
-    style: TextStyle(color: Colors.white, fontSize: 30),
-  );
-}
-
-Widget campoUsuario() {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-    child: const TextField(
-      decoration: InputDecoration(
-          hintText: "Usuario", fillColor: Colors.white, filled: true),
     ),
-  );
-}
-
-Widget campoContrasena() {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-    child: const TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-          hintText: "Password", fillColor: Colors.white, filled: true),
-    ),
-  );
-}
-
-Widget botonEntrar() {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blueAccent, // background
-        foregroundColor: Colors.white, // foreground
-        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 10)),
-    onPressed: () {},
-    child: const Text(
-      'Ingresar',
-      style: TextStyle(fontSize: 25, color: Colors.white),
-    ),
-  );
-}
-
-// Mostrando una listview de fotos
-Widget _buildBodyContentFotos() {
-  return ListView(
-    children: [
-      Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Image.network(
-              "https://images.unsplash.com/photo-1682686580950-960d1d513532?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
-      Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Image.network(
-              "https://images.unsplash.com/photo-1701205880113-b6309a1a7afe?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
-      Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Image.network(
-              "https://images.unsplash.com/photo-1682686580950-960d1d513532?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
-    ],
   );
 }

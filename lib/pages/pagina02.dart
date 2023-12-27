@@ -13,39 +13,39 @@ class Pagina02 extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text(
+            const Text(
               "Terminos y condiciones",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
-            Text(
+            const Text(
               "Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones",
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.justify,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
               "Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones",
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.justify,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
                 "Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones"),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
                 "Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones"),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
                 "Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones Para usar esta aplicaciones es necesario que aceptes los terminos y condiciones"),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ElevatedButton(
