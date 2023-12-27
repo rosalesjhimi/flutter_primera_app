@@ -29,11 +29,30 @@ class _InicioState extends State<Inicio> {
         appBar: AppBar(
           title: const Text("Mi Applicacion"),
         ),
-        body: _buildCuerpoLogin());
+        body: _buildCuerpoNavegacion(context));
   }
 }
 
-
+Widget _buildCuerpoNavegacion(context) {
+  return Center(
+      child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Text('Home'),
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.red, // background
+          onPrimary: Colors.white, // foreground
+        ),
+        child: Text('Ir a la otra pagina'),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Pagina02()));
+        },
+      ),
+    ],
+  ));
+}
 
 // Mostrando un menu de Login
 Widget _buildCuerpoLogin() {
